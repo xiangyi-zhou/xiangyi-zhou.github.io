@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xiangyi's Portfolio Webpage </title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- 引入 Font Awesome 图标库 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body {
+      background: linear-gradient(to bottom, #0d1117, #161b22, #0d1117);
+      color: #ffffff;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px 20px;
+      text-align: center;
+      min-height: 100vh;
+    }
+
+    /* 语言切换按钮 */
+    .lang-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .lang-toggle button {
+      background-color: #21262d;
+      color: #ffffff;
+      border: none;
+      padding: 5px 10px;
+      margin-left: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .lang-toggle button.active {
+      background-color: #0d6efd;
+    }
+
+    /* 翻转卡片动效 */
+    .flip-card {
+      background-color: transparent;
+      width: 300px;
+      height: 400px;
+      perspective: 1000px;
+      margin-bottom: 50px;
+      cursor: pointer;
+      animation: float 3s ease-in-out infinite;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .flip-card:hover {
+      transform: scale(1.05) rotateZ(2deg);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    @keyframes float {
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+    }
+
+    .flip-card.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front,
+    .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 15px;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .flip-card-front {
+      background-color: #0d6efd;
+      color: white;
+    }
+
+    .flip-card-back {
+      background-color: #21262d;
+      color: #ffffff;
+      transform: rotateY(180deg);
+    }
+
+    .flip-card img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin-bottom: 15px;
+      border: 3px solid #ffffff;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    p {
+      line-height: 1.5;
+      font-size: 0.95rem;
+    }
+
+    /* 关于我 */
+    .about-section {
+      max-width: 700px;
+      text-align: left;
+      margin-bottom: 50px;
+    }
+
+    .about-section h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .about-section p {
+      margin-bottom: 15px;
+      color: #c9d1d9;
+    }
+
+    /* 底部联系方式 */
+    footer {
+      text-align: center;
+      margin-top: auto;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 10px;
+    }
+
+    .social-icons a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      font-size: 1.5rem;
+      color: #ffffff;
+      background-color: #21262d;
+      border-radius: 50%;
+      text-decoration: none;
+      transition: transform 0.3s, background-color 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #ffffff;
+      background-color: #0d6efd;
+      transform: scale(1.2) rotate(10deg);
+    }
+
+    footer p {
+      margin-top: 10px;
+      color: #c9d1d9;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 语言切换 -->
+  <div class="lang-toggle">
+    <button id="btn-cn" class="active">中文</button>
+    <button id="btn-en">EN</button>
+  </div>
+
+  <!-- 翻转卡片 -->
+  <div class="flip-card" id="flipCard">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="https://via.placeholder.com/120" alt="头像" id="front-img">
+        <h2 id="front-name">你的名字</h2>
+        <p id="front-desc">前端开发 & 数据分析爱好者<br>热衷优化体验与解决问题</p>
+      </div>
+      <div class="flip-card-back">
+        <img src="https://via.placeholder.com/120" alt="头像" id="back-img">
+        <h2 id="back-name">你的名字</h2>
+        <p id="back-desc">Web3 & 区块链探索者<br>关注智能合约和量化交易<br>欢迎项目合作和交流</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 关于我 -->
+  <section class="about-section">
+    <h2 id="about-title"></h2>
+    <p id="about-1"></p>
+    <p id="about-2"></p>
+    <p id="about-3"></p>
+    <p id="about-4"></p>
+  </section>
+
+  <!-- 底部联系方式 -->
+  <footer>
+    <div class="social-icons">
+      <a href="mailto:your@email.com"><i class="fas fa-envelope"></i></a>
+      <a href="https://github.com/yourusername"><i class="fab fa-github"></i></a>
+      <a href="https://twitter.com/yourusername"><i class="fab fa-twitter"></i></a>
+      <a href="https://linkedin.com/in/yourusername"><i class="fab fa-linkedin"></i></a>
+    </div>
+    <p>The best way to contact me is through email.</p>
+  </footer>
+
+  <script>
+    const content = {
+      cn: {
+        frontName: "周襄宜",
+        frontDesc: "前端开发 & 数据分析爱好者<br>热衷优化体验与解决问题",
+        backName: "你的名字",
+        backDesc: "Web3 & 区块链探索者<br>",
+        aboutTitle: "关于我",
+        about: [
+          "暂居深圳，探索数字游民生活方式，寻找Web3机会。无论是全职、兼职、项目合作，还是 coffee chat 交流、参加社区活动，都欢迎联系我。",
+          "正在准备 ETHShanghai 2025 Hackathon（已组队），同时关注其他活动，如 Starknet Re{solve} Hackathon。",
+          "每周优化个人网页，展示更多项目，同时考虑 Reactjs 和 Jekyll 的应用。",
+          "学习智能合约，找回前端和数据分析 + 爬虫的编程手感。对加密货币量化交易也感兴趣（不炒币），欢迎一起做项目，商业化/非营利/学习目的不限。"
+        ]
+      },
+      en: {
+        frontName: "Xiangyi Zhou",
+        frontDesc: "Frontend Developer & Data Analyst<br>Passionate about UX optimization and problem-solving",
+        backName: "@0xEllaZXY",
+        backDesc: "Web3 & Blockchain Explorer<br>Interested in smart contracts and quant trading<br>Open for collaborations and discussions",
+        aboutTitle: "About Me",
+        about: [
+          "Currently based in Shenzhen, exploring the digital nomad lifestyle and Web3 opportunities. Open to full-time, part-time, project collaborations, or simply a coffee chat and community events.",
+          "Preparing for ETHShanghai 2025 Hackathon (already teamed up) while also keeping an eye on events like Starknet Re{solve} Hackathon.",
+          "Weekly updates on this personal site with more projects, considering Reactjs and Jekyll.",
+          "Learning smart contracts, refreshing frontend and data analysis + web scraping skills. Interested in crypto quant trading (not speculation). Open to projects of any kind — commercial, nonprofit, or purely for learning."
+        ]
+      }
+    };
+
+    // 卡片翻转
+    const flipCard = document.getElementById('flipCard');
+    flipCard.addEventListener('click', () => {
+      flipCard.classList.toggle('flipped');
+    });
+
+    // 语言切换
+    const btnCn = document.getElementById('btn-cn');
+    const btnEn = document.getElementById('btn-en');
+
+    btnCn.addEventListener('click', () => setLang('cn'));
+    btnEn.addEventListener('click', () => setLang('en'));
+
+    function setLang(lang) {
+      btnCn.classList.toggle('active', lang === 'cn');
+      btnEn.classList.toggle('active', lang === 'en');
+
+      document.getElementById('front-name').innerText = content[lang].frontName;
+      document.getElementById('front-desc').innerHTML = content[lang].frontDesc;
+      document.getElementById('back-name').innerText = content[lang].backName;
+      document.getElementById('back-desc').innerHTML = content[lang].backDesc;
+
+      document.getElementById('about-title').innerText = content[lang].aboutTitle;
+      for (let i = 0; i < 4; i++) {
+        document.getElementById(`about-${i + 1}`).innerText = content[lang].about[i];
+      }
+    }
+
+    // 默认英文
+    setLang('en');
+  </script>
+
+</body>
+
+</html>
